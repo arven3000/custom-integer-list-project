@@ -69,25 +69,26 @@ public class IntegerListImpl implements IntegerList {
         System.arraycopy(elementData, index + 1, elementData, index, elementData.length - 1 - index);
         size--;
         if (size < elementData.length >> 1 && elementData.length >= DEFAULT_CAPACITY) {
-            elementData = Arrays.copyOf(elementData, (elementData.length >>> 1));
+            elementData = Arrays.copyOf(elementData, (int) (elementData.length / 1.5));
         }
         return item;
     }
 
     @Override
     public boolean contains(Integer item) {
-        quickSort(elementData, 0, size - 1);
+        Integer[] copy = Arrays.copyOf(elementData, elementData.length);
+        quickSort(copy, 0, size - 1);
         int min = 0;
         int max = size - 1;
 
         while (min <= max) {
             int mid = (min + max) / 2;
 
-            if (Objects.equals(item, elementData[mid])) {
+            if (Objects.equals(item, copy[mid])) {
                 return true;
             }
 
-            if (item < elementData[mid]) {
+            if (item < copy[mid]) {
                 max = mid - 1;
             } else {
                 min = mid + 1;
