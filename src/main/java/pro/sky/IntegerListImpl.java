@@ -68,7 +68,7 @@ public class IntegerListImpl implements IntegerList {
         Integer item = elementData[index];
         System.arraycopy(elementData, index + 1, elementData, index, elementData.length - 1 - index);
         size--;
-        if (size < elementData.length >> 1 && elementData.length >= DEFAULT_CAPACITY) {
+        if (size < elementData.length * 1.5 && elementData.length > DEFAULT_CAPACITY + 1) {
             elementData = Arrays.copyOf(elementData, (int) (elementData.length / 1.5));
         }
         return item;
